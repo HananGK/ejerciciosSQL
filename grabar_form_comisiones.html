@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="grabar_form_comisiones.js" defer></script>
+</head>
+<body>
+    <form action="http://82.223.202.137:8082/comisiones" method="post">
+        <table border="1">
+            <tr>
+                <td>id</td>
+                <td><input type="number" name="id" id="id"></td>
+            </tr>
+            <tr>
+                <td>Comision</td>
+                <td><input type="number" name="comision" id="comision"></td>
+            </tr>
+            <tr>
+                <td>Minimo</td>
+                <td><input type="number" name="minimo" id="minimo"></td>
+            </tr>
+            <tr>
+                <td>Maximo</td>
+                <td><input type="number" name="maximo" id="maximo"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><button type="submit" onclick="grabarComisiones()">Grabar</button></td>
+            </tr>
+        </table>
+
+    </form>
+    
+</body>
+</html>

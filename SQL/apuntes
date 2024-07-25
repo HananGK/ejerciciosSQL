@@ -1,0 +1,127 @@
+#insert into [tabla] o si hay varias -> [esquema.tabla] (campo1, campo2, campo3...) values (6, 'textocampo2', 'textocampo3');
+insert into cargos (descripcion) values ('nuevo cargo');
+#delete from [esquema.tabla] where campo='nuevo cargo' o id=9 (mejor, causa menos errores);
+delete from cargos where id=9;
+#update [esquema.tabla] set campo='nuevo valor' where id=13;
+update cargos set descripcion='otra descripcion' where id=13;
+#retrieve -> consultar   
+#select [campos] from [tabla con un alias] where [condiciones] order by [campo];
+select
+c.descripcion
+from
+cargos as c;
+#te da todas las descripciones
+
+select 
+e.nombre
+from
+empleados as e
+order by nombre;
+
+select
+e.nombre, e.dni, e.fecha_nacimiento
+from empleados as e
+order by nombre;
+
+select 
+*
+from 
+empleados as e where e.id=1 or e.id=2; #muestra 1 y 2
+
+select
+*
+from 
+empleados as e where e.id<>1 and e.id<>2; #a partir del 3
+
+select
+*
+from 
+empleados as e where e.id>4;
+
+select 
+* 
+from empleados as e where nombre like'p%'; #los q empiecen por p
+
+select
+*
+from empleados as e where nombre like '%a%'; #los q contienen a
+
+select
+e.nombre, e.dni,  ec.descripcion, h.chicas
+from empleados as e,  datos_personales as dp,  estados_civiles as ec, hijos as h
+where e.datos_personales_id=dp.id and dp.hijos_id=h.id and dp.estados_civiles_id=ec.id;
+
+select
+e.nombre, e.apellidos, ec.descripcion, e.fecha_nacimiento, dl.salario, c.descripcion, h.chicos, em.descripcion
+from empleados as e, estados_civiles as ec, hijos as h, cargos as c, datos_laborales as dl, datos_personales as dp, empresas as em
+where nombre like 'p%' and e.datos_personales_id=dp.id and dp.hijos_id=h.id and dp.estados_civiles_id=ec.id and e.datos_laborales_id=dl.id 
+and cargos_id=c.id and e.empresas_id=em.id;
+
+select
+e.nombre, e.apellidos, ec.descripcion, e.fecha_nacimiento, dl.salario, c.descripcion, h.chicos, em.descripcion
+from empleados as e, estados_civiles as ec, hijos as h, cargos as c, datos_laborales as dl, datos_personales as dp, empresas as em
+where nombre = 'pepe' and e.datos_personales_id=dp.id and dp.hijos_id=h.id and dp.estados_civiles_id=ec.id and e.datos_laborales_id=dl.id 
+and cargos_id=c.id and e.empresas_id=em.id;
+ 
+select avg(v.cantidad), sum(v.cantidad)
+from ventas as v;
+
+select
+count('empleados')
+from empleados as e, estados_civiles as ec, hijos as h, cargos as c, datos_laborales as dl, datos_personales as dp, empresas as em
+where nombre like 'p%' and e.datos_personales_id=dp.id and dp.hijos_id=h.id and dp.estados_civiles_id=ec.id and e.datos_laborales_id=dl.id 
+and cargos_id=c.id and e.empresas_id=em.id;
+
+select
+sum(h.chicos), sum(h.chicas)
+from empleados as e, estados_civiles as ec, hijos as h, cargos as c, datos_laborales as dl, datos_personales as dp, empresas as em
+where e.datos_personales_id=dp.id and dp.hijos_id=h.id and dp.estados_civiles_id=ec.id and e.datos_laborales_id=dl.id 
+and cargos_id=c.id and e.empresas_id=em.id;
+
+select
+e.nombre, sum(a.precio)
+from empleados as e, ventas as v, articulos as a
+where v.empleado_id=e.id and v.articulo_id=a.id group by e.nombre;
+
+select a.descripcion 
+from articulos as a
+where tipo_iva_id in (1,3, 2);
+
+select a.descripcion 
+from articulos as a
+where tipo_iva_id between 2 and 3;	
+
+
+select a.descripcion, a.precio, v.cantidad, (v.cantidad*a.precio) as base_imponible
+from articulos as a, ventas as v
+where v.articulo_id=a.id
+order by descripcion;
+
+select a.descripcion, a.precio, v.cantidad, (v.cantidad*a.precio) as base_imponible, ti.iva as iva,
+truncate(((v.cantidad*a.precio)+(v.cantidad*a.precio*ti.iva/100)), 2) as total_factura
+from articulos as a, ventas as v, tipos_iva as ti
+where v.articulo_id =a.id and a.tipo_iva_id=ti.id
+order by descripcion;
+#titulos tambien podemos ponerles alias
+#TRUNCATE(loquesea, numerodecimales)
+
+select e.nombre, sum(v.cantidad) as total_empleado
+from empleados as e, ventas as v
+where v.empleado_id =e.id group by e.nombre;
+
+select e.nombre, truncate(avg(v.cantidad), 2) as total_empleado
+from empleados as e, ventas as v
+where v.empleado_id =e.id group by e.nombre;
+
+#ver fecha en formato dd/mm/yyyy
+select date_format(e.fecha_nacimiento, '%d/%m/%Y'), e.fecha_nacimiento
+from empleados as e;
+
+select e.nombre, e.apellidos, truncate(sum(v.cantidad), 2) as total_empleado
+from empleados as e, ventas as v
+where v.empleado_id=e.id group by e.nombre, e.apellidos
+
+select *
+from hijos as h, empleados as e, datos_personales as dp
+where e.datos_personales_id=dp.id and dp.hijos_id=h.id and (h.chicos+h.chicas)>=3;
+

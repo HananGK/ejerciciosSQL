@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="clases.js" defer></script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha de nacimiento</th>
+            <th>Fecha de alta</th>
+            <th>Fecha de baja</th>
+            <th>Datos laborales</th>
+            <th>Datos personales</th>
+            <th>Empresa</th>
+        </tr>
+        <tr>
+            <td><input type="number" value="0" id="id"></td>
+            <td><input type="text" id="dni" maxlength="9"></td>
+            <td><input type="text" id="nombre" maxlength="45"></td>
+            <td><input type="text" id="apellidos" maxlength="200"></td>
+            <td><input type="date" id="fechaNacimiento"></td>
+            <td><input type="date" id="fechaAlta"></td>
+            <td><input type="date" id="fechaBaja"></td>
+            <td>
+                <select id="datosLaborales">
+                    <option value="0">Selecciona una opción...</option>
+                    <option value="1">Director - 500€</option>
+                    <option value="2">Jefe de proyecto - 400€</option>
+                    <option value="3">Jefe de proyecto - 1800€</option>
+                    <option value="4">Secretario/a - 1200€</option>
+                    <option value="5">Cajero/a - 800€</option>
+                    <option value="6">Recursos animales - 1300€</option>
+                </select>
+            </td>
+            <td>
+                <select id="datosPersonales">
+                    <option value="0">Selecciona una opción...</option>
+                    <option value="1">Separado - 2 chicos y 1 chica</option>
+                    <option value="2">Casado - 3 chicas</option>
+                    <option value="3">Soltero - Sin hijos</option>
+                    <option value="4">Soltero - 2 chicas</option>
+                </select>
+            </td>
+            <td>
+                <select id="empresa">
+                    <option value="0">Selecciona una empresa...</option>
+                    <option value="1">Curso</option>
+                    <option value="2">Telepizza</option>
+                    <option value="3">Pinturas Manolo</option>
+                    <option value="4">Domino's Pizza</option>
+                    <option value="5">Chuches S.L.</option>
+                    <option value="6">la mejor empresa</option>
+                </select>
+        </tr>
+    </table> 
+    <button types=submit onclick="grabarEmpleado()">Insertar</button>
+</body>
+</html>
